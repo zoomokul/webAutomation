@@ -1,0 +1,10 @@
+2022-07-03 13:07:356 INFO  PageStepDefinitions:37 - www.gittigidiyor.com sitesi açılır.
+2022-07-03 13:07:675 INFO  PageStepDefinitions:44 - Arama kutucuğuna bilgisayar kelimesi girilir.
+2022-07-03 13:07:569 INFO  PageStepDefinitions:50 - Arama sonuçları sayfasından 2.sayfa açılır.
+2022-07-03 13:07:734 INFO  PageStepDefinitions:56 - 2.sayfanın açıldığı kontrol edilir.
+2022-07-03 13:07:325 INFO  PageStepDefinitions:67 - Sonuca göre sergilenen ürünlerden rastgele bir ürün seçilir.
+2022-07-03 13:07:320 INFO  PageStepDefinitions:83 - Seçilen ürünün ürün bilgisi ve tutar bilgisi txt dosyasına yazılır.
+2022-07-03 13:07:435 INFO  PageStepDefinitions:91 - Seçilen ürün sepete eklenir.
+2022-07-03 13:07:960 INFO  PageStepDefinitions:98 - Ürün sayfasındaki fiyat ile sepette yer alan ürün fiyatının doğruluğu karşılaştırılır.
+2022-07-03 13:07:118 INFO  PageStepDefinitions:107 - Adet arttırılarak ürün adedinin 2 olduğu doğrulanır.
+2022-07-03 13:07:298 INFO  PageStepDefinitions:117 - Ürün sepetten silinerek sepetin boş olduğu kontrol edilir.
