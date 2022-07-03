@@ -11,7 +11,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import seleniumWebAutomation.pages.CartPage;
 import seleniumWebAutomation.pages.HomePage;
+import seleniumWebAutomation.pages.PageTwoPage;
+import seleniumWebAutomation.pages.ProductPage;
 import seleniumWebAutomation.utilities.ConfigReader;
 import seleniumWebAutomation.utilities.Driver;
 import seleniumWebAutomation.utilities.LoggerHelper;
@@ -25,6 +28,9 @@ import java.util.Random;
 
 public class PageStepDefinitions {
     HomePage homePage=new HomePage();
+    PageTwoPage pageTwoPage=new PageTwoPage();
+    ProductPage productPage=new ProductPage();
+    CartPage cartPage=new CartPage();
     public static String price="";
     Logger log = LoggerHelper.getLogger(PageStepDefinitions.class);
 
@@ -46,7 +52,7 @@ public class PageStepDefinitions {
 
     @Then("open page two")
     public void openPageTwo() {
-        homePage.page2.click();
+        pageTwoPage.page2.click();
         log.info("Arama sonuçları sayfasından 2.sayfa açılır.");
     }
 
@@ -63,21 +69,21 @@ public class PageStepDefinitions {
 
 
         Driver.getDriver().navigate().refresh();
-        Driver.getDriver().findElement(By.xpath("(//h2)["+random.nextInt(homePage.products.size())+"]")).click();
+        Driver.getDriver().findElement(By.xpath("(//h2)["+random.nextInt(pageTwoPage.products.size())+"]")).click();
         log.info("Sonuca göre sergilenen ürünlerden rastgele bir ürün seçilir.");
     }
 
     @And("write product info and price to file")
     public void writeProductInfoAndPriceToFile() throws IOException {
 
-        price=homePage.productPrice.getText();
+        price=productPage.productPrice.getText();
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         FileWriter fWriter = new FileWriter("product.txt",true);
         fWriter.write(formatter.format(date)+" : ");
-        fWriter.write(homePage.productInfo.getText()+" : ");
-        fWriter.write(homePage.productPrice.getText()+"\n");
+        fWriter.write(productPage.productInfo.getText()+" : ");
+        fWriter.write(productPage.productPrice.getText()+"\n");
         fWriter.write("----------------------------------------"+"\n");
         fWriter.close();
         log.info("Seçilen ürünün ürün bilgisi ve tutar bilgisi txt dosyasına yazılır.");
@@ -86,22 +92,22 @@ public class PageStepDefinitions {
 
     @And("add product to cart")
     public void addProductToCart() throws InterruptedException {
-        homePage.addCart.click();
+        productPage.addCart.click();
         Thread.sleep(5000);
         log.info("Seçilen ürün sepete eklenir.");
     }
 
     @Then("compare cart and product page  price")
     public void compareCartAndProductPagePrice() {
-        homePage.clickCart.click();
-        Assert.assertEquals(price,homePage.cartPrice.getText());
+        productPage.clickCart.click();
+        Assert.assertEquals(price,cartPage.cartPrice.getText());
         log.info("Ürün sayfasındaki fiyat ile sepette yer alan ürün fiyatının doğruluğu karşılaştırılır.");
 
     }
 
     @And("increase the product quantity and verify that it is two")
     public void increaseTheProductQuantityAndVerifyThatItIsTwo() {
-        Select select=new Select(homePage.productInDropDown);
+        Select select=new Select(cartPage.productInDropDown);
         select.selectByVisibleText("2");
         Assert.assertEquals("2",select.getFirstSelectedOption().getText());
         log.info("Adet arttırılarak ürün adedinin 2 olduğu doğrulanır.");
@@ -111,9 +117,9 @@ public class PageStepDefinitions {
 
     @Then("delete product and check cart is empty or not")
     public void deleteProductAndCheckCartIsEmptyOrNot() throws InterruptedException {
-        homePage.clearCart.click();
+        cartPage.clearCart.click();
         Thread.sleep(5000);
-        Assert.assertEquals("Sepetinizde ürün bulunmamaktadır.",homePage.cartStatus.getText());
+        Assert.assertEquals("Sepetinizde ürün bulunmamaktadır.",cartPage.cartStatus.getText());
         log.info("Ürün sepetten silinerek sepetin boş olduğu kontrol edilir.");
     }
 }
